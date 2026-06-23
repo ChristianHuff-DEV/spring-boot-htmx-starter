@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '4.0.7'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.graalvm.buildtools.native' version '0.11.5'
     id 'com.github.node-gradle.node' version '7.1.0'
 }
 
@@ -43,4 +44,23 @@ tasks.register('npmBuild', NpmTask) {
 
 tasks.named('processResources') {
     dependsOn 'npmBuild'
+}
+
+graalvmNative {
+    agent {
+        // Keep test-framework reflection (JUnit, Mockito, Spring Test) out of the
+        // production metadata - those classes aren't on the native-image classpath.
+        accessFilterFiles.from('src/test/resources/access-filter.json')
+    }
+    metadataCopy {
+        inputTaskNames.add('test')
+        // Use a coordinate distinct from the application's own group/artifact
+        // (io.betweendata/htmx-starter) so this agent-traced metadata does not collide
+        // with the reachability-metadata.json that Spring Boot AOT generates at that
+        // same path. GraalVM merges every META-INF/native-image/<group>/<artifact>
+        // subdirectory, so the hints are still picked up for native compilation.
+        outputDirectories.add('src/main/resources/META-INF/native-image/io.betweendata/htmx-starter-agent')
+        // Overwrite with the freshly traced metadata rather than accumulating stale entries.
+        mergeWithExisting = false
+    }
 }

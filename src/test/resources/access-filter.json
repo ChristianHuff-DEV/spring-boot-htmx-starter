@@ -1,0 +1,31 @@
+{
+  "rules": [
+    {
+      "includeClasses": "**"
+    },
+    {
+      "excludeClasses": "org.junit.**"
+    },
+    {
+      "excludeClasses": "org.mockito.**"
+    },
+    {
+      "excludeClasses": "net.bytebuddy.**"
+    },
+    {
+      "excludeClasses": "org.objenesis.**"
+    },
+    {
+      "excludeClasses": "org.springframework.test.**"
+    },
+    {
+      "excludeClasses": "org.springframework.boot.test.**"
+    },
+    {
+      "excludeClasses": "org.springframework.boot.webmvc.test.**"
+    },
+    {
+      "excludeClasses": "org.springframework.boot.webflux.test.**"
+    }
+  ]
+}
