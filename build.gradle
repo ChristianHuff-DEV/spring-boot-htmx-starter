@@ -23,6 +23,7 @@ dependencies {
 
     implementation 'io.github.wimdeblauwe:htmx-spring-boot-thymeleaf:5.1.0'
     implementation 'io.github.wimdeblauwe:vite-spring-boot-thymeleaf:2.0.1'
+    implementation 'org.webjars.npm:htmx.org:4.0.0-beta4'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-thymeleaf-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
 >
+<script type="text/javascript" th:src="@{/webjars/htmx.org/4.0.0-beta4/dist/htmx.min.js}"></script>
 <head>
     <meta charset="UTF-8">
     <title>spring-boot-htmx-starter</title>
@@ -10,6 +13,14 @@
     </vite:vite>
 </head>
 <body>
-<h1 class="text-blue-400">Hello World!</h1>
+<h1 class="text-blue-300 text-6xl">Count: <span th:replace="~{components/counter :: counter}"></span></h1>
+<div class="m-4 flex gap-4">
+    <button th:hx-post="@{/count(direction='down')}" hx-target="#counter" class="p-1 outline-1 hover:cursor-pointer">
+        Count Down
+    </button>
+    <button th:hx-post="@{/count(direction='up')}" hx-target="#counter" class="p-1 outline-1 hover:cursor-pointer">
+        Count Up
+    </button>
+</div>
 </body>
 </html>
